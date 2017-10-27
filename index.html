@@ -43,29 +43,38 @@ $(document).ready(function(){
 		var output='"Subject", "Start Date", "Start Time", "End Date", "End Time", "Description", "Location"';
 
 		for(i = 1; i < lines.length; i++){
-			var cols = lines[i].trim().split("\t");
-			cols[4] = cols[4].replace(/-/g, "/");
-			var out = [];
+			try {
+				var cols = lines[i].trim().split("\t");
+				console.log(cols);
 
-			var time =  ca_to_time[cols[5]];
+				var out = [];
 
-			out[0] = "GÁC " + cols[2];
-			out[1] = cols[4];
-			out[2] = time;
-			out[3] = cols[4];
+				var time =  ca_to_time[cols[6]];
 
-			//Typical time for one test is 90 minutes, convert it to miliseconds
-			//and add that number to start time we got end time
-			var end_time = new Date(Date.parse("1/1/2011" + " " + time) + 90*60*1000);
-			out[4] = end_time.getHours() + ":" + end_time.getMinutes();
 
-			out[5] = cols[3] + "-" + cols[2]
-					+ "\nSố SV: " + cols[7]
-					+ "\nCB coi thi: " + cols[8];
-			out[6] = cols[6];
-			out = out.map(function(value){return '"' + value + '"';});
-			//console.log(out);
-			output += "\n" + out.join();
+				out[0] = "GÁC " + cols[2]; 
+				out[1] = out[3] = cols[5].replace(/-/g, "/");
+				out[2] = time;
+				
+
+				//Typical time for one test is 90 minutes, convert it to miliseconds
+				//and add that number to start time we got end time
+				var end_time = new Date(Date.parse("1/1/2011" + " " + time) + 90*60*1000);
+				out[4] = end_time.getHours() + ":" + end_time.getMinutes();
+
+				out[5] = cols[3] + "-" + cols[2] //Mon hoc - Lop
+						+ "\nSố SV: " + cols[7] 
+						+ "\nCB coi thi: " + cols[9];
+				out[6] = cols[7]; //Location
+
+				out = out.map(function(value){return '"' + value + '"';});
+				//console.log(out);
+				output += "\n" + out.join();
+			} catch (err){
+				alert( "error process line " + i ); 
+
+				continue;
+			}
 		}
 		console.log();
 
