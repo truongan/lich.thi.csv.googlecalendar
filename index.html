@@ -62,9 +62,8 @@ $(document).ready(function(){
 
 				var time =  ca_to_time[cols[6]];
 
-
 				out[0] = "GÁC " + cols[2]; 
-				out[1] = out[3] = cols[5].replace(/-/g, "/");
+				out[1] = out[3] = cols[5].split("-").reverse().join("/");//.replace(/-/g, "/");
 				out[2] = time;
 				
 
@@ -82,8 +81,8 @@ $(document).ready(function(){
 				//console.log(out);
 				output += "\n" + out.join();
 			} catch (err){
-				alert( "error process line " + i ); 
-
+				console.log( "error process line " + i ); 
+				console.log(err);
 				continue;
 			}
 		}
