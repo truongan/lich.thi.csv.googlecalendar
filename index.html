@@ -36,8 +36,19 @@ $(document).ready(function(){
 		lines = input.split("\n");
 		//$(lines).each(function(index, value){alert(value);});
 		console.log(lines[0].trim().split("\t"));
-		/// 0		1		2		3		4			5		6		7		8
-		/// "STT", "MãMH", "Lớp", "Tên MH", "Ngày thi", "Ca", "Phòng", "Số SV", "CBCT"
+		
+		/* ----- info from daa ------
+			0: "STT"
+			1: "MãMH"
+			2: "Lớp"
+			3: "Tên MH"
+			4: "KhoaQL"
+			5: "Ngày thi"
+			6: "Ca"
+			7: "Phòng"
+			8: "Số SV"
+			9: "CBCT"
+		*/
 
 		//			0			1				2			3			4			5			6
 		var output='"Subject", "Start Date", "Start Time", "End Date", "End Time", "Description", "Location"';
@@ -51,9 +62,8 @@ $(document).ready(function(){
 
 				var time =  ca_to_time[cols[6]];
 
-
 				out[0] = "GÁC " + cols[2]; 
-				out[1] = out[3] = cols[5].replace(/-/g, "/");
+				out[1] = out[3] = cols[5].split("-").reverse().join("/");//.replace(/-/g, "/");
 				out[2] = time;
 				
 
@@ -63,7 +73,7 @@ $(document).ready(function(){
 				out[4] = end_time.getHours() + ":" + end_time.getMinutes();
 
 				out[5] = cols[3] + "-" + cols[2] //Mon hoc - Lop
-						+ "\nSố SV: " + cols[7] 
+						+ "\nSố SV: " + cols[8] 
 						+ "\nCB coi thi: " + cols[9];
 				out[6] = cols[7]; //Location
 
@@ -71,8 +81,8 @@ $(document).ready(function(){
 				//console.log(out);
 				output += "\n" + out.join();
 			} catch (err){
-				alert( "error process line " + i ); 
-
+				console.log( "error process line " + i ); 
+				console.log(err);
 				continue;
 			}
 		}
