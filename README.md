@@ -1,4 +1,7 @@
 Đổi lịch coi thi từ DAA sang file csv có thể import vào google calendar.
+
+![alt text](instruction.gif "Import lịch canh thi từ daa vào google calendar")
+
 =======
 1. Tải file index.html về máy
 2. Mở bằng trình duyệt (đã test trên chrome và firefox)
